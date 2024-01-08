@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wheather</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Creepster&family=Dancing+Script&family=Foldit:wght@300;400&family=Luckiest+Guy&family=Noto+Sans+Malayalam:wght@300;400&family=Pacifico&family=Permanent+Marker&family=Poppins:wght@300;400&family=Righteous&family=Roboto+Condensed:wght@300;400;700&family=Skranji&family=Teko:wght@300&family=Titan+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- icons -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <video autoplay muted loop id="myVideo">
+      <source id="bgVid" src="./images/cloudy.mp4" type="video/mp4" />
+    </video>
+    <div class="container">
+      <div class="banner-container" id="bannerContainer">
+        <div class="weather">
+          <h3>the weather</h3>
+
+          <div class="section" id="section">
+            <p>City Name</p>
+          </div>
+          <div id="weatherIcon"></div>
+        </div>
+        <div class="weather-details">
+          <div class="search-item">
+            <input
+              type="text"
+              placeholder="Enter the city name"
+              class="input"
+              id="city_name"
+            />
+            <button id="btn" class="search" onclick="search()">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+
+          <div class="result" id="result">
+            <ul>
+              <li>
+                <p>weather</p>
+                <ul>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+
+              <li>
+                <p>wind</p>
+                <ul>
+                  <li>speed :</li>
+                </ul>
+              </li>
+              <hr />
+              <li>
+                <p>main</p>
+                <ul>
+                  <li>temp :</li>
+                  <li>pressure :</li>
+                  <li>humidity :</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    const search = () => {
+      const cityName = city_name.value;
+
+      if (cityName) {
+        fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=01ecccbe0acdde36c8fb3f2aec6bb87e`
+        ).then((response) => {
+          response.json().then((data) => {
+            let Weather = data.weather;
+            let wind = data.wind;
+            let main = data.main;
+            let city = data.name;
+
+            Weather.map((item) => {
+              const cloud = item.main;
+              if (cloud == "Rain") {
+                bannerContainer.style.background = "url(./images/Rainy.jpg)";
+                bannerContainer.style.backgroundSize = "cover";
+                bannerContainer.style.backgroundPosition = "center";
+                btn.style.backgroundColor = "rgb(1, 14, 58)";
+                btn.addEventListener("mouseOver", (btn) => {
+                  btn.style.backgroundColor = "white";
+                  btn.style.color = "black";
+                });
+                btn.addEventListener("mouseOut", () => {
+                  btn.style.backgroundColor = "rgb(1, 14, 58)";
+                  btn.style.color = "white";
+                });
+                weatherIcon.innnerHTML = `<img src="http://openweathermap.org/img/w/10n.png" alt="">`;
+              } else if (cloud == "Snow") {
+                bannerContainer.style.background = "url(./images/Snowy.jpg)";
+                bannerContainer.style.backgroundSize = "cover";
+                bannerContainer.style.backgroundPosition = "center";
+                myVideo.innerHTML = `<source src="./images/snowy.mp4" type="video/mp4">`;
+              } else if (cloud == "Clear") {
+                bannerContainer.style.background = "url(./images/Sunny.jpg)";
+                bannerContainer.style.backgroundSize = "cover";
+                bannerContainer.style.backgroundPosition = "center";
+                result.style.color = "black";
+
+                myVideo.innerHTML = `<source src="./images/clear.mp4" type="video/mp4">`;
+              } else if (cloud == "Clouds") {
+                bannerContainer.style.background = "url(./images/Cloudy.jpg)";
+                bannerContainer.style.backgroundSize = "cover";
+                bannerContainer.style.backgroundPosition = "center";
+                myVideo.innerHTML = `<source src="./images/cloudy.mp4" type="video/mp4">`;
+              } else if (cloud == "Haze") {
+                bannerContainer.style.background =
+                  'url("https://i.pinimg.com/736x/a2/e4/39/a2e439498a2f064aa25a923bcd5e54ed.jpg")';
+                bannerContainer.style.backgroundSize = "cover";
+                bannerContainer.style.backgroundPosition = "center";
+              }
+            });
+
+            section.innerHTML = `<h1>${parseInt(main.temp - 273)}&deg;</h1>
+                                        <p>${city}</p>
+                                        <img src="http://openweathermap.org/img/w/${
+                                          data.weather[0].icon
+                                        }.png">`;
+
+            result.innerHTML = `<ul>
+                        <li>
+                            <p>weather</p>
+                            <ul>
+                                ${Weather.map(
+                                  (item) =>
+                                    `<li>${item.main}</li>
+                                     <li><img src="http://openweathermap.org/img/w/${item.icon}.png">${item.description}</li>`
+                                )}
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <p>wind</p>
+                            <ul>
+                                <li>speed :${wind.speed + " kph"}</li>
+                            </ul>
+                        </li>
+                        <hr>
+                        <li>
+                            <p>main</p>
+                            <ul>
+                                <li>temp : ${parseInt(
+                                  main.temp - 273
+                                )}&deg;</li>
+                                <li>pressure : ${main.pressure}</li>
+                                <li>humidity : ${main.humidity + "%"}</li>
+                            </ul>
+                        </li>
+                    </ul>`;
+          });
+        });
+      } else {
+        alert("please enter a city name");
+      }
+
+      // city_name.value = ""
+    };
+  </script>
+</html>

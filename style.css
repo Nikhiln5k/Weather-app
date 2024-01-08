@@ -1,0 +1,239 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+body{
+    font-family: 'varela round',sans-serif;
+    background: #111;
+}
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
+.container{
+    width: 100%;
+    height: 100vh;
+    /* background: linear-gradient(to bottom, rgb(184, 248, 82), rgb(15, 52, 70));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: -1;
+}
+
+.banner-container{
+    width: 60%;
+    height: 80%;
+    background: url(./images/Cloudy.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0 10px 10px rgba(31, 31, 31, 0.616);
+    z-index: 1;
+    transition: 0.4s ease;
+}
+
+h1, h3,span{
+    color: white;
+    padding: 10px;
+    font-weight: 50px;
+}
+
+.weather{
+    width: 60%;
+    min-height: 493px;
+    background: rgba(19, 19, 19, 0.6);
+    float: left;
+    position: relative;
+}
+.section h1{
+    font-size: 50px;
+    font-weight: 50px;
+}
+.section p{
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+}
+
+.section img{
+    width: 100%;
+    height: 100%;
+}
+
+.banner-container .weather .section{
+    position: absolute;
+    bottom: 15px;
+    padding: 20px;
+    display: flex;
+    
+}
+
+/* details section */
+
+.weather-details{
+    width: 40%;
+    min-height: 493px;
+    background: #a5a5a540;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    float: right;
+    
+}
+
+.weather-details .input{
+    width: 80%;
+    background: transparent;
+    padding: 3px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+    font-size: medium;
+    position: absolute;
+    top: 25px;
+}
+
+.search-item{
+    position: relative;
+}
+#btn{
+    width: 50px;
+    height: 50px;
+    background-color: orange;
+    color: white;
+    border: none;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#btn:hover{
+    background-color: white;
+    color: rgb(0, 0, 0);
+}
+
+.result{
+    position: relative;
+    top: 5rem;
+    padding: 20px;
+    color: white;
+    
+}
+
+.result ul li{
+    padding: 10px;
+    transition: 0.4s ease-in;
+}
+
+hr{
+    color: rgb(75, 75, 75);
+    opacity: 40%;
+}
+
+@media (max-width: 440px){
+    .banner-container{
+        width: 90%;
+        position: relative;
+    }
+    .weather{
+        width: 100%;
+        height: 2rem;
+        position: relative;
+    }
+    .weather-details{
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+
+    }
+    .section{
+        position: absolute;
+        top: 30px;
+        padding: 30px;
+        display: flex;
+    }
+    .section #weatherIcon{
+        width: 50px;
+        height: 50px;
+        position: relative;
+        top: 10px;
+    }
+    .section #weatherIcon img{
+        width: 100%;
+    }
+}
+
+/* @media (max-width:440px){
+    .container{
+        width: 100%;
+    }
+    .banner-container{
+        width: 400px;
+        height: 300px;
+        position: absolute;
+        bottom: 0;
+        
+    }
+
+    .weather{
+        width: 100%;
+        height: 10px;
+        background: rgba(19, 19, 19, 0.6);
+        float: left;
+        position: relative;
+    }
+    .banner-container .weather .section{
+        position: absolute;
+        top: 30px;
+        padding: 30px;
+        display: flex;
+        
+    }
+    #weatherIcon{
+        width: 100px;
+        height: 100px;
+    }
+    #weatherIcon img{
+        width: 60%;
+    }
+    .weather-details{
+        width: 100%;
+        min-height: 200px;
+        border-radius: 6px;
+        position: absolute;
+        top: 13rem;
+        flex-grow: 1;
+        overflow-y: scroll;
+        overflow: overlay;
+        
+    }
+    
+    .section img{
+        width: 100px;
+        height: 100px;
+    }
+} */
+
+/* @media (max-width:990px ){
+    .container{
+        width: 100%;
+    }
+    .banner-container{
+        
+        width: 80%;
+        height: 50%;
+        
+    }
+} */
